@@ -20,7 +20,7 @@ import br.com.sistemalanchonete.cliente.form.ClienteFORM;
 import br.com.sistemalanchonete.cliente.service.ClienteService;
 
 @RestController
-@RequestMapping(name = "cliente")
+@RequestMapping(path = "/cliente")
 public class ClienteResource {
 
 	@Autowired

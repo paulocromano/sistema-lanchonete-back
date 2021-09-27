@@ -1,5 +1,7 @@
 package br.com.sistemalanchonete.cliente.form;
 
+import java.time.LocalDate;
+
 import javax.validation.Valid;
 import javax.validation.constraints.NotEmpty;
 import javax.validation.constraints.NotNull;
@@ -36,6 +38,7 @@ public class ClienteFORM {
 				.telefone(telefone)
 				.telefoneRecado(telefoneRecado)
 				.endereco(endereco.converterParaEndereco())
+				.dataCadastro(LocalDate.now())		
 				.build();
 	}
 }

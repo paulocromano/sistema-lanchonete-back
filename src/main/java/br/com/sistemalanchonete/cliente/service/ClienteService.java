@@ -50,6 +50,6 @@ public class ClienteService {
 		if (cliente.isPresent())
 			return cliente.get();
 			
-		throw new ObjectNotFoundException("Cliente não encontrado!")
-;	}
+		throw new ObjectNotFoundException("Cliente não encontrado!");	
+	}
 }
