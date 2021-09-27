@@ -41,4 +41,11 @@ public class ClienteFORM {
 				.dataCadastro(LocalDate.now())		
 				.build();
 	}
+	
+	public void alterarDadosCliente(Cliente cliente) {
+		cliente.setNome(nome);
+		cliente.setTelefone(telefone);
+		cliente.setTelefoneRecado(telefoneRecado);
+		cliente.setEndereco(endereco.converterParaEndereco());
+	}
 }

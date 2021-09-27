@@ -34,6 +34,13 @@ public class ClienteService {
 		return ResponseEntity.status(HttpStatus.CREATED).build();
 	}
 	
+	public ResponseEntity<Void> alterarDadosCliente(Long id, ClienteFORM clienteFORM) {
+		Cliente cliente = verificarSeClienteExiste(id);
+		clienteFORM.alterarDadosCliente(cliente);
+		
+		return ResponseEntity.ok().build();
+	}
+	
 	public ResponseEntity<Void> excluirCliente(Long id) {
 		Cliente cliente = verificarSeClienteExiste(id);
 		clienteRepository.delete(cliente);

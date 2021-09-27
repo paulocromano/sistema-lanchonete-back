@@ -11,6 +11,7 @@ import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.PutMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
@@ -38,7 +39,16 @@ public class ClienteResource {
 		return clienteService.cadastrarCliente(cliente);
 	}
 	
-	@RequestMapping(path = "/{id}")
+	@RequestMapping(path = "/alterar/{id}")
+	@PutMapping
+	@Transactional
+	public ResponseEntity<Void> alterarDadosCliente(@PathVariable Long id, 
+			@RequestBody @Valid ClienteFORM clienteFORM) {
+		
+		return clienteService.alterarDadosCliente(id, clienteFORM);
+	}
+	
+	@RequestMapping(path = "/excluir/{id}")
 	@DeleteMapping
 	@Transactional
 	public ResponseEntity<Void> excluirCliente(@PathVariable Long id) {

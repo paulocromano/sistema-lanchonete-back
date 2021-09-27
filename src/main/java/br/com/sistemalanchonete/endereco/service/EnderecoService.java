@@ -1,34 +1,21 @@
 package br.com.sistemalanchonete.endereco.service;
 
 import java.util.Objects;
-import java.util.Optional;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Service;
 
 import br.com.sistemalanchonete.endereco.dto.EnderecoDTO;
-import br.com.sistemalanchonete.endereco.model.Endereco;
 import br.com.sistemalanchonete.endereco.model.EnderecoAPIViaCEP;
-import br.com.sistemalanchonete.endereco.repository.EnderecoRepository;
 import br.com.sistemalanchonete.exception.custom.ObjectNotFoundException;
 
 
 @Service
 public class EnderecoService {
-
-	@Autowired
-	private EnderecoRepository enderecoRepository;
 	
 	@Autowired
 	private CEPService cepService;
-	
-	
-	public ResponseEntity<EnderecoDTO> buscarEnderecoPaciente(Long idPaciente) {
-		Endereco endereco = null; //= verificarSeExisteEnderecoPeloIDPaciente(idPaciente);
-		
-		return ResponseEntity.ok().body(new EnderecoDTO(endereco));
-	}
 	
 	
 	public ResponseEntity<EnderecoDTO> buscarEnderecoPeloCEP(String cep) {
@@ -56,18 +43,4 @@ public class EnderecoService {
 			throw new NumberFormatException("O CEP deve conter apenas números!");
 		}
 	}
-	
-	
-//	private Endereco verificarSeExisteEnderecoPeloIDPaciente(Long idPaciente) {
-//		if (Objects.isNull(idPaciente))
-//			throw new NullPointerException("O ID do Paciente para buscar o Endereço "
-//					+ "não pode ser nulo!");
-//		
-//		Optional<Endereco> endereco = enderecoRepository.findByPaciente_Id(idPaciente);
-//		
-//		if (endereco.isEmpty())
-//			throw new ObjectNotFoundException("Endereço não encontrado!");
-//		
-//		return endereco.get();
-//	}
 }
