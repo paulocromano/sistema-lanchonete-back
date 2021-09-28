@@ -1,16 +1,12 @@
-package br.com.sistemalanchonete.cliente.model;
+package br.com.sistemalanchonete.fornecedor.model;
 
 import java.time.LocalDate;
 
-import javax.persistence.CascadeType;
 import javax.persistence.Column;
 import javax.persistence.Entity;
-import javax.persistence.FetchType;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
-import javax.persistence.JoinColumn;
-import javax.persistence.OneToOne;
 import javax.persistence.Table;
 import javax.validation.constraints.NotEmpty;
 import javax.validation.constraints.NotNull;
@@ -19,7 +15,6 @@ import javax.validation.constraints.Size;
 
 import org.springframework.format.annotation.DateTimeFormat;
 
-import br.com.sistemalanchonete.endereco.model.Endereco;
 import br.com.sistemalanchonete.utils.RegexUtils;
 import lombok.AccessLevel;
 import lombok.AllArgsConstructor;
@@ -29,38 +24,39 @@ import lombok.NoArgsConstructor;
 import lombok.Setter;
 
 @Entity
-@Table(name = "cliente", catalog = "sistema_lanchonete")
+@Table(name = "fornecedor")
 @Getter
 @Setter
 @NoArgsConstructor
 @AllArgsConstructor(access = AccessLevel.PRIVATE)
 @Builder
-public class Cliente {
+public class Fornecedor {
 
 	@Id
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	private Long id;
 	
-	@NotEmpty(message = "O campo 'nome' não pode ser nulo/vazio!")
-	@Size(max = 100, message = "O campo 'nome' deve ter no máximo {max} caracteres!")
-	private String nome;
+	@Column(name = "nome_empresa")
+	@NotEmpty(message = "O campo 'nomeEmpresa' não deve ser nulo/vazio!")
+	@Size(max = 60, message = "O campo 'nomeEmpresa' deve ter no máximo {max} caracteres!")
+	private String nomeEmpresa;
+	
+	@NotEmpty(message = "O campo 'cnpj' não deve ser nulo/vazio!")
+	@Size(max = 18, message = "O campo 'cnpj' deve ter no máximo {max} caracteres!")
+	@Pattern(regexp = RegexUtils.CNPJ, message = "O formato do campo 'cnpj' está inválido!")
+	private String cnpj;
 	
 	@NotEmpty(message = "O campo 'telefone' não deve ser nulo/vazio!")
 	@Size(max = 15, message = "O campo 'telefone' deve ter no máximo {max} caracteres!")
 	@Pattern(regexp = RegexUtils.TELEFONE, message = "O formato do campo 'telefone' está inválido!")
 	private String telefone;
 	
-	@Column(name = "telefone_recado")
-	@Size(max = 15, message = "O campo 'telefoneRecado' deve ter no máximo {max} caracteres!")
-	private String telefoneRecado;
+	@Column(name = "telefone_alternativo")
+	@Size(max = 15, message = "O campo 'telefoneAlternativo' deve ter no máximo {max} caracteres!")
+	private String telefoneAlternativo;
 	
 	@Column(name = "data_cadastro")
 	@DateTimeFormat(pattern = "dd/MM/yyyy")
 	@NotNull(message = "O campo 'dataCadastro' não deve ser nulo!")
 	private LocalDate dataCadastro;
-	
-	@JoinColumn(name = "endereco_id")
-	@OneToOne(cascade = CascadeType.ALL, fetch = FetchType.LAZY)
-	@NotNull(message = "O campo 'endereco' não pode ser nulo!")
-	private Endereco endereco;
 }
