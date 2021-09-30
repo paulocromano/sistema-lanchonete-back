@@ -38,8 +38,7 @@ public class FornecedorService {
 	}
 	
 	public ResponseEntity<Void> alterarDadosFornecedor(Long id, FornecedorFORM fornecedorFORM) {
-		Fornecedor fornecedor = verificarSeFornecedorExiste(id);
-		verificarSeExisteFornecedorComMesmoNomeEmpresa(fornecedorFORM.getNomeEmpresa());
+		Fornecedor fornecedor = verificarSeExisteFornecedorComMesmoNomeEmpresa(id, fornecedorFORM.getNomeEmpresa());
 		fornecedorFORM.alterarDadosFornecedor(fornecedor);
 		
 		return ResponseEntity.ok().build();
@@ -57,6 +56,18 @@ public class FornecedorService {
 		
 		if (fornecedor.isPresent())
 			throw new IllegalArgumentException("Nome de Empresa já cadastrado!");
+	}
+	
+	public Fornecedor verificarSeExisteFornecedorComMesmoNomeEmpresa(Long id, String nomeEmpresa) {
+		if (Objects.isNull(id))
+			throw new NullPointerException("O ID do Fornecedor não pode ser nulo!");
+		
+		Optional<Fornecedor> fornecedor = fornecedorRepository.findByIdNotAndNomeEmpresaIgnoreCase(id, nomeEmpresa.trim());
+		
+		if (fornecedor.isPresent())
+			throw new IllegalArgumentException("Nome de Empresa já cadastrado!");
+		
+		return fornecedor.get();
 	}
 	
 	public Fornecedor verificarSeFornecedorExiste(Long id) {

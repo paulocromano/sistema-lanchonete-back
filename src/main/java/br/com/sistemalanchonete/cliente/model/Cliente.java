@@ -29,7 +29,7 @@ import lombok.NoArgsConstructor;
 import lombok.Setter;
 
 @Entity
-@Table(name = "cliente", catalog = "sistema_lanchonete")
+@Table(name = "cliente")
 @Getter
 @Setter
 @NoArgsConstructor

@@ -11,6 +11,7 @@ import org.springframework.web.bind.MethodArgumentNotValidException;
 import org.springframework.web.bind.annotation.ControllerAdvice;
 import org.springframework.web.bind.annotation.ExceptionHandler;
 
+import br.com.sistemalanchonete.exception.custom.FileException;
 import br.com.sistemalanchonete.exception.custom.ObjectNotFoundException;
 import br.com.sistemalanchonete.exception.model.PadraoErro;
 import br.com.sistemalanchonete.exception.model.ValidationError;
@@ -38,6 +39,11 @@ public class ExceptionHandle {
 	@ExceptionHandler(ObjectNotFoundException.class)
 	public ResponseEntity<PadraoErro> notFound(ObjectNotFoundException exception, HttpServletRequest request) {
 		return erroPadronizado(HttpStatus.NOT_FOUND, "Objeto não encontrado!", exception, request);
+	}
+	
+	@ExceptionHandler(FileException.class)
+	public ResponseEntity<PadraoErro> file(FileException exception, HttpServletRequest request) {
+		return erroPadronizado(HttpStatus.BAD_REQUEST, "Erro em arquivo!", exception, request);
 	}
 
 	@ExceptionHandler(MethodArgumentNotValidException.class)

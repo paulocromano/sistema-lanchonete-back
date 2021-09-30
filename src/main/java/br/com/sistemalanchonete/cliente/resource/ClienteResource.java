@@ -39,8 +39,7 @@ public class ClienteResource {
 		return clienteService.cadastrarCliente(cliente);
 	}
 	
-	@RequestMapping(path = "/alterar/{id}")
-	@PutMapping
+	@PutMapping(path = "/alterar/{id}")
 	@Transactional
 	public ResponseEntity<Void> alterarDadosCliente(@PathVariable Long id, 
 			@RequestBody @Valid ClienteFORM clienteFORM) {
@@ -48,8 +47,7 @@ public class ClienteResource {
 		return clienteService.alterarDadosCliente(id, clienteFORM);
 	}
 	
-	@RequestMapping(path = "/excluir/{id}")
-	@DeleteMapping
+	@DeleteMapping(path = "/excluir/{id}")
 	@Transactional
 	public ResponseEntity<Void> excluirCliente(@PathVariable Long id) {
 		return clienteService.excluirCliente(id);

@@ -39,8 +39,7 @@ public class FornecedorResource {
 		return fornecedorService.cadastrarFornecedor(fornecedorFORM);
 	}
 	
-	@RequestMapping(path = "/alterar/{id}")
-	@PutMapping
+	@PutMapping(path = "/alterar/{id}")
 	@Transactional
 	public ResponseEntity<Void> alterarDadosFornecedor(@PathVariable Long id, 
 			@RequestBody @Valid FornecedorFORM fornecedorFORM) {
@@ -48,8 +47,7 @@ public class FornecedorResource {
 		return fornecedorService.alterarDadosFornecedor(id, fornecedorFORM);
 	}
 	
-	@RequestMapping(path = "/excluir/{id}")
-	@DeleteMapping
+	@DeleteMapping(path = "/excluir/{id}")
 	@Transactional
 	public ResponseEntity<Void> excluirFornecedor(@PathVariable Long id) {
 		return fornecedorService.excluirFornecedor(id);
