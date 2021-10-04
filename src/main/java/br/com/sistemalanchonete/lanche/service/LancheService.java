@@ -11,7 +11,7 @@ import org.springframework.stereotype.Service;
 import org.springframework.web.multipart.MultipartFile;
 
 import br.com.sistemalanchonete.exception.custom.ObjectNotFoundException;
-import br.com.sistemalanchonete.fornecedor.service.ImagemLancheService;
+import br.com.sistemalanchonete.lanche.dto.ImagemLancheBase64DTO;
 import br.com.sistemalanchonete.lanche.dto.LancheDTO;
 import br.com.sistemalanchonete.lanche.form.LancheFORM;
 import br.com.sistemalanchonete.lanche.model.Lanche;
@@ -41,14 +41,15 @@ public class LancheService {
 		return ResponseEntity.status(HttpStatus.CREATED).build();
 	}
 	
-	public ResponseEntity<String> encodeImagemLancheParaBase64(MultipartFile imagem) {
+	public ResponseEntity<ImagemLancheBase64DTO> encodeImagemLancheParaBase64(MultipartFile imagem) {
 		String imagemBase64 = imagemLancheService.encodeBase64(imagem);
 		
-		return ResponseEntity.ok().body(imagemBase64);
+		return ResponseEntity.ok().body(new ImagemLancheBase64DTO(imagemBase64));
 	}
 
 	public ResponseEntity<Void> alterarDadosLanche(Long id, LancheFORM lancheFORM) {
-		Lanche lanche = verificarSeExisteLancheComMesmoNome(id, lancheFORM.getNome());
+		verificarSeExisteLancheComMesmoNome(id, lancheFORM.getNome());
+		Lanche lanche = verificarSeLancheExiste(id);
 		lancheFORM.atualizarDadosLanche(lanche);
 		
 		return ResponseEntity.ok().build();
@@ -68,7 +69,7 @@ public class LancheService {
 			throw new IllegalArgumentException("Já existe um lanche com o mesmo nome cadastrado!");
 	}
 	
-	public Lanche verificarSeExisteLancheComMesmoNome(Long id, String nomeLanche) {
+	public void verificarSeExisteLancheComMesmoNome(Long id, String nomeLanche) {
 		if (Objects.isNull(id))
 			throw new NullPointerException("O ID do lanche não pode ser nulo!");
 		
@@ -76,8 +77,6 @@ public class LancheService {
 		
 		if (lanche.isPresent())
 			throw new IllegalArgumentException("Já existe um lanche com o mesmo nome cadastrado!");
-		
-		return lanche.get();
 	}
 	
 	public Lanche verificarSeLancheExiste(Long id) {

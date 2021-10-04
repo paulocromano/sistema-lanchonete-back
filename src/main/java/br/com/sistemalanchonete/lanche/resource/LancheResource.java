@@ -18,6 +18,7 @@ import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 import org.springframework.web.multipart.MultipartFile;
 
+import br.com.sistemalanchonete.lanche.dto.ImagemLancheBase64DTO;
 import br.com.sistemalanchonete.lanche.dto.LancheDTO;
 import br.com.sistemalanchonete.lanche.form.LancheFORM;
 import br.com.sistemalanchonete.lanche.service.LancheService;
@@ -50,7 +51,7 @@ public class LancheResource {
 	}
 	
 	@PostMapping(path = "/encode-imagem-lanche")
-	public ResponseEntity<String> encodeImagemLancheParaBase64(@RequestParam MultipartFile imagem) {
+	public ResponseEntity<ImagemLancheBase64DTO> encodeImagemLancheParaBase64(@RequestParam MultipartFile imagem) {
 		return lancheService.encodeImagemLancheParaBase64(imagem);
 	}
 	

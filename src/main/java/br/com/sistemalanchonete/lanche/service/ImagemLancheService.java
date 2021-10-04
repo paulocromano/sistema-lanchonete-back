@@ -1,4 +1,4 @@
-package br.com.sistemalanchonete.fornecedor.service;
+package br.com.sistemalanchonete.lanche.service;
 
 import java.awt.image.BufferedImage;
 import java.io.IOException;
@@ -17,7 +17,7 @@ import br.com.sistemalanchonete.exception.custom.FileException;
 @Service
 public class ImagemLancheService {
 
-	public static final List<String> EXTENSOES_PERMITIDAS = Arrays.asList("png", "jpg");
+	public static final List<String> EXTENSOES_PERMITIDAS = Arrays.asList("png");
 	
 	
 	public String encodeBase64(MultipartFile imagem) {

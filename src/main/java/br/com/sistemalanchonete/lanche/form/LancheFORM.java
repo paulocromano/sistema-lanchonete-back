@@ -49,6 +49,6 @@ public class LancheFORM {
 		lanche.setNome(nome);
 		lanche.setIngredientes(ingredientes);
 		lanche.setPreco(preco);
-		lanche.setImagemBase64(imagemBase64);
+		lanche.setImagemBase64(imagemBase64.split("data:image/png;base64,")[0]);
 	}
 }

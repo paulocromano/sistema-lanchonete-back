@@ -1,0 +1,106 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!-- Created with Jaspersoft Studio version 6.16.0.final using JasperReports Library version 6.16.0-48579d909b7943b64690c65c71e07e0b80981928  -->
+<jasperReport xmlns="http://jasperreports.sourceforge.net/jasperreports" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://jasperreports.sourceforge.net/jasperreports http://jasperreports.sourceforge.net/xsd/jasperreport.xsd" name="clientes" pageWidth="595" pageHeight="842" columnWidth="555" leftMargin="20" rightMargin="20" topMargin="20" bottomMargin="20" uuid="4f177dcc-7621-447d-80d9-286804a5899b">
+	<subDataset name="cliente" uuid="e28df12c-0411-4a06-a330-43e129dc3a82">
+		<queryString>
+			<![CDATA[]]>
+		</queryString>
+		<field name="nome" class="java.lang.String"/>
+		<field name="telefone" class="java.lang.String"/>
+		<field name="telefoneRecado" class="java.lang.String"/>
+		<field name="dataCadastro" class="java.lang.String"/>
+	</subDataset>
+	<parameter name="titulo" class="java.lang.String"/>
+	<parameter name="parametrosLista" class="net.sf.jasperreports.engine.data.JRBeanCollectionDataSource"/>
+	<parameter name="dataHorarioGeracaoRelatorio" class="java.lang.String"/>
+	<queryString>
+		<![CDATA[]]>
+	</queryString>
+	<background>
+		<band splitType="Stretch"/>
+	</background>
+	<title>
+		<band height="79" splitType="Stretch"/>
+	</title>
+	<pageHeader>
+		<band height="55" splitType="Stretch">
+			<textField>
+				<reportElement x="0" y="25" width="550" height="30" uuid="e0910a4f-96d4-400f-80b4-682b82b553e2"/>
+				<textElement textAlignment="Center">
+					<font size="14" isBold="true"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$P{titulo}]]></textFieldExpression>
+			</textField>
+		</band>
+	</pageHeader>
+	<columnHeader>
+		<band height="61" splitType="Stretch"/>
+	</columnHeader>
+	<detail>
+		<band height="125" splitType="Stretch">
+			<componentElement>
+				<reportElement x="-10" y="0" width="570" height="80" uuid="19fa106d-68dd-48bd-9cc2-84f633dc1bd4"/>
+				<jr:list xmlns:jr="http://jasperreports.sourceforge.net/jasperreports/components" xsi:schemaLocation="http://jasperreports.sourceforge.net/jasperreports/components http://jasperreports.sourceforge.net/xsd/components.xsd" printOrder="Vertical">
+					<datasetRun subDataset="cliente" uuid="08825fa2-ae33-4147-9aa0-fa9aac80ad41">
+						<dataSourceExpression><![CDATA[$P{parametrosLista}]]></dataSourceExpression>
+					</datasetRun>
+					<jr:listContents height="80" width="570">
+						<textField>
+							<reportElement x="0" y="0" width="570" height="20" uuid="f7edfd30-9e5f-4547-871b-15edd1bf691f"/>
+							<box leftPadding="10">
+								<topPen lineWidth="1.0"/>
+								<leftPen lineWidth="1.0"/>
+								<rightPen lineWidth="1.0"/>
+							</box>
+							<textElement markup="html"/>
+							<textFieldExpression><![CDATA["<b>Nome: </b>" + $F{nome}]]></textFieldExpression>
+						</textField>
+						<textField>
+							<reportElement x="0" y="20" width="570" height="20" uuid="2db05514-b814-4bd4-8f51-f130fbd96a31"/>
+							<box leftPadding="10">
+								<leftPen lineWidth="1.0"/>
+								<rightPen lineWidth="1.0"/>
+							</box>
+							<textElement markup="html"/>
+							<textFieldExpression><![CDATA["<b>Telefone: </b>" + $F{telefone}]]></textFieldExpression>
+						</textField>
+						<textField>
+							<reportElement x="0" y="40" width="570" height="20" uuid="9b91a6bc-c3ec-410e-80df-548b7de119b7"/>
+							<box leftPadding="10">
+								<leftPen lineWidth="1.0"/>
+								<rightPen lineWidth="1.0"/>
+							</box>
+							<textElement markup="html"/>
+							<textFieldExpression><![CDATA["<b>Telefone p/ Recado: </b>" + $F{telefoneRecado}]]></textFieldExpression>
+						</textField>
+						<textField>
+							<reportElement x="0" y="60" width="570" height="20" uuid="995df325-cd8d-443d-bfc5-e592dfca28eb"/>
+							<box leftPadding="10">
+								<leftPen lineWidth="1.0"/>
+								<bottomPen lineWidth="1.0"/>
+								<rightPen lineWidth="1.0"/>
+							</box>
+							<textElement markup="html"/>
+							<textFieldExpression><![CDATA["<b>Cadastrado em: </b>" + $F{dataCadastro}]]></textFieldExpression>
+						</textField>
+					</jr:listContents>
+				</jr:list>
+			</componentElement>
+		</band>
+	</detail>
+	<columnFooter>
+		<band height="45" splitType="Stretch"/>
+	</columnFooter>
+	<pageFooter>
+		<band height="54" splitType="Stretch"/>
+	</pageFooter>
+	<summary>
+		<band height="49" splitType="Stretch">
+			<textField>
+				<reportElement x="80" y="10" width="400" height="30" uuid="b653fedc-892e-4c99-9125-2588e8dabc1b"/>
+				<textElement textAlignment="Center" markup="html"/>
+				<textFieldExpression><![CDATA["<b>Gerado em: </b>" + $P{dataHorarioGeracaoRelatorio}]]></textFieldExpression>
+			</textField>
+		</band>
+	</summary>
+</jasperReport>
