@@ -36,6 +36,7 @@ public class Lanche {
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	private Long id;
 	
+	@Column(unique = true)
 	@NotEmpty(message = "O campo 'nome' não pode ser nulo/vazio!")
 	@Size(max = 60, message = "O campo 'nome' deve ter no máximo {max} caracteres!")
 	private String nome;

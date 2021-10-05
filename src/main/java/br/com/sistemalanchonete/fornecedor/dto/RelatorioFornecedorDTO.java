@@ -5,6 +5,7 @@ import java.util.Comparator;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
+import java.util.Objects;
 
 import br.com.sistemalanchonete.fornecedor.model.Fornecedor;
 import br.com.sistemalanchonete.utils.ConversaoUtils;
@@ -27,7 +28,7 @@ public class RelatorioFornecedorDTO {
 		nomeEmpresa = fornecedor.getNomeEmpresa();
 		cnpj = fornecedor.getCnpj();
 		telefone = fornecedor.getTelefone();
-		telefoneAlternativo = fornecedor.getTelefoneAlternativo();
+		telefoneAlternativo = Objects.nonNull(fornecedor.getTelefoneAlternativo()) ? fornecedor.getTelefoneAlternativo() : "---";
 		dataCadastro = ConversaoUtils.converterLocalDateParaString(fornecedor.getDataCadastro());
 	}
 	
