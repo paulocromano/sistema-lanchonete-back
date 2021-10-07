@@ -11,6 +11,7 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Service;
 
 import br.com.sistemalanchonete.despesa.dto.DespesaDTO;
+import br.com.sistemalanchonete.despesa.dto.InformacoesCadastroDespesaDTO;
 import br.com.sistemalanchonete.despesa.form.AlteracaoDespesaFORM;
 import br.com.sistemalanchonete.despesa.form.DespesaFORM;
 import br.com.sistemalanchonete.despesa.model.Despesa;
@@ -29,6 +30,10 @@ public class DespesaService {
 		List<Despesa> despesas = despesaRepository.findAll();
 		
 		return ResponseEntity.ok().body(DespesaDTO.converter(despesas));
+	}
+	
+	public ResponseEntity<InformacoesCadastroDespesaDTO> buscarInformacoesParaCadastroDespesa() {
+		return ResponseEntity.ok().body(new InformacoesCadastroDespesaDTO());
 	}
 	
 	public ResponseEntity<Void> cadastrarDespesa(DespesaFORM formularioDespesa) {

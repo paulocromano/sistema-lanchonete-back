@@ -11,9 +11,11 @@ import com.fasterxml.jackson.databind.JsonDeserializer;
 import com.fasterxml.jackson.databind.JsonMappingException;
 import com.fasterxml.jackson.databind.deser.ContextualDeserializer;
 
+import br.com.sistemalanchonete.utils.conversao.enums.GettersEnum;
+
 
 @SuppressWarnings("unchecked")
-public class DesserializacaoEnum<E extends CodigoEnum<?>> extends JsonDeserializer<E> implements ContextualDeserializer {
+public class DesserializacaoEnum<E extends GettersEnum<?>> extends JsonDeserializer<E> implements ContextualDeserializer {
 
 	private E[] constantesEnum;
 
@@ -24,7 +26,7 @@ public class DesserializacaoEnum<E extends CodigoEnum<?>> extends JsonDeserializ
 		String codigoEnumFormulario = p.getText();
 		
 		if (Objects.nonNull(codigoEnumFormulario)) {
-			for (CodigoEnum<?> valorEnum : constantesEnum) {
+			for (GettersEnum<?> valorEnum : constantesEnum) {
 				if (valorEnum.getCodigo().equals(codigoEnumFormulario))
 					return (E) valorEnum;
 			}

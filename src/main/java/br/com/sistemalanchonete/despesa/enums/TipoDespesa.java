@@ -1,10 +1,10 @@
 package br.com.sistemalanchonete.despesa.enums;
 
-import br.com.sistemalanchonete.utils.CodigoEnum;
+import br.com.sistemalanchonete.utils.conversao.enums.GettersEnum;
 import lombok.Getter;
 
 @Getter
-public enum TipoDespesa implements CodigoEnum<TipoDespesa> {
+public enum TipoDespesa implements GettersEnum<TipoDespesa> {
 
 	AGUA("1", "Água"),
 	LUZ("2", "Luz"),

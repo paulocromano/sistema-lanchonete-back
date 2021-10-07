@@ -17,6 +17,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
 import br.com.sistemalanchonete.despesa.dto.DespesaDTO;
+import br.com.sistemalanchonete.despesa.dto.InformacoesCadastroDespesaDTO;
 import br.com.sistemalanchonete.despesa.form.AlteracaoDespesaFORM;
 import br.com.sistemalanchonete.despesa.form.DespesaFORM;
 import br.com.sistemalanchonete.despesa.service.DespesaService;
@@ -34,6 +35,11 @@ public class DespesaResource {
 		return despesaService.listarDespesas();
 	}
 	
+	@GetMapping(path = "/informacoes-para-cadastro")
+	public ResponseEntity<InformacoesCadastroDespesaDTO> buscarInformacoesParaCadastroDespesa() {
+		return despesaService.buscarInformacoesParaCadastroDespesa();
+	}
+	
 	@PostMapping
 	@Transactional
 	public ResponseEntity<Void> cadastrarDespesa(@RequestBody @Valid DespesaFORM formularioDespesa) {
@@ -41,6 +47,7 @@ public class DespesaResource {
 	}
 	
 	@PutMapping(path = "/alterar/{id}")
+	@Transactional
 	public ResponseEntity<Void> alterarDespesa(@PathVariable Long id, 
 			@RequestBody @Valid AlteracaoDespesaFORM alteracaoDespesaFORM) {
 		
