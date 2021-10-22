@@ -5,6 +5,7 @@ import java.util.Comparator;
 import java.util.List;
 
 import br.com.sistemalanchonete.fornecedor.model.Fornecedor;
+import br.com.sistemalanchonete.produto.dto.ProdutoDTO;
 import br.com.sistemalanchonete.utils.ConvertCollection;
 import br.com.sistemalanchonete.utils.FormatacaoUtils;
 import lombok.Getter;
@@ -18,6 +19,7 @@ public class FornecedorDTO {
 	private String telefone;
 	private String telefoneAlternativo;
 	private LocalDate dataCadastro;
+	private List<ProdutoDTO> produtos;
 	
 	
 	public FornecedorDTO(Fornecedor fornecedor) {
@@ -27,6 +29,7 @@ public class FornecedorDTO {
 		telefone = fornecedor.getTelefone();
 		telefoneAlternativo = fornecedor.getTelefoneAlternativo();
 		dataCadastro = fornecedor.getDataCadastro();
+		produtos = ProdutoDTO.converter(fornecedor.getProdutos());
 	}
 	
 	public static List<FornecedorDTO> converter(List<Fornecedor> fornecedores) {

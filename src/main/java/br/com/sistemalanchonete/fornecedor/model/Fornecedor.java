@@ -1,12 +1,15 @@
 package br.com.sistemalanchonete.fornecedor.model;
 
 import java.time.LocalDate;
+import java.util.List;
 
 import javax.persistence.Column;
 import javax.persistence.Entity;
+import javax.persistence.FetchType;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
+import javax.persistence.OneToMany;
 import javax.persistence.Table;
 import javax.validation.constraints.NotEmpty;
 import javax.validation.constraints.NotNull;
@@ -15,6 +18,7 @@ import javax.validation.constraints.Size;
 
 import org.springframework.format.annotation.DateTimeFormat;
 
+import br.com.sistemalanchonete.produto.model.Produto;
 import br.com.sistemalanchonete.utils.RegexUtils;
 import lombok.AccessLevel;
 import lombok.AllArgsConstructor;
@@ -59,4 +63,7 @@ public class Fornecedor {
 	@DateTimeFormat(pattern = "dd/MM/yyyy")
 	@NotNull(message = "O campo 'dataCadastro' não deve ser nulo!")
 	private LocalDate dataCadastro;
+	
+	@OneToMany(mappedBy = "fornecedor", fetch = FetchType.LAZY)
+	private List<Produto> produtos;
 }

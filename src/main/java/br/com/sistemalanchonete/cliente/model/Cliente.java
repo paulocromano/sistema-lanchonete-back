@@ -1,6 +1,7 @@
 package br.com.sistemalanchonete.cliente.model;
 
 import java.time.LocalDate;
+import java.util.List;
 
 import javax.persistence.CascadeType;
 import javax.persistence.Column;
@@ -10,6 +11,7 @@ import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.JoinColumn;
+import javax.persistence.OneToMany;
 import javax.persistence.OneToOne;
 import javax.persistence.Table;
 import javax.validation.constraints.NotEmpty;
@@ -20,6 +22,7 @@ import javax.validation.constraints.Size;
 import org.springframework.format.annotation.DateTimeFormat;
 
 import br.com.sistemalanchonete.endereco.model.Endereco;
+import br.com.sistemalanchonete.pedido.model.Pedido;
 import br.com.sistemalanchonete.utils.RegexUtils;
 import lombok.AccessLevel;
 import lombok.AllArgsConstructor;
@@ -63,4 +66,7 @@ public class Cliente {
 	@OneToOne(cascade = CascadeType.ALL, fetch = FetchType.LAZY)
 	@NotNull(message = "O campo 'endereco' não pode ser nulo!")
 	private Endereco endereco;
+	
+	@OneToMany(mappedBy = "cliente", cascade = CascadeType.ALL, fetch = FetchType.LAZY)
+	private List<Pedido> pedidos;
 }
