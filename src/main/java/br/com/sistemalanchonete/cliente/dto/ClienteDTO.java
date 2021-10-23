@@ -7,6 +7,7 @@ import java.util.Objects;
 
 import br.com.sistemalanchonete.cliente.model.Cliente;
 import br.com.sistemalanchonete.endereco.dto.EnderecoDTO;
+import br.com.sistemalanchonete.pedido.dto.PedidoDTO;
 import br.com.sistemalanchonete.utils.ConvertCollection;
 import br.com.sistemalanchonete.utils.FormatacaoUtils;
 import lombok.Getter;
@@ -21,6 +22,7 @@ public class ClienteDTO {
 	private String telefoneRecado;
 	private LocalDate dataCadastro;
 	private EnderecoDTO endereco;
+	private List<PedidoDTO> pedidos;
 	
 	
 	public ClienteDTO(Cliente cliente) {
@@ -30,6 +32,7 @@ public class ClienteDTO {
 		telefoneRecado = Objects.nonNull(cliente.getTelefoneRecado()) ? cliente.getTelefoneRecado() : "---";
 		dataCadastro = cliente.getDataCadastro();
 		endereco = new EnderecoDTO(cliente.getEndereco());
+		pedidos = PedidoDTO.converter(cliente.getPedidos());
 	}
 	
 	
