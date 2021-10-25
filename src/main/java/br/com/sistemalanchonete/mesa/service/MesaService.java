@@ -34,14 +34,22 @@ public class MesaService {
 		return ResponseEntity.ok().body(MesaDTO.converter(mesas));
 	}
 	
-	public ResponseEntity<List<MesaDTO>> buscarMesasDisponiveis() {
-		List<Mesa> mesas = mesaRepository.findByDisponivelAndMesaAtiva(Resposta.SIM, Resposta.SIM);
+	public ResponseEntity<List<MesaDTO>> buscarMesasAtivas() {
+		List<Mesa> mesas = mesaRepository.findByMesaAtiva(Resposta.SIM);
 		return ResponseEntity.ok().body(MesaDTO.converter(mesas));
 	}
 	
 	public ResponseEntity<Void> cadastrarMesa(MesaFORM mesaFORM) {
+		verificarSeMesaJaExiste(mesaFORM.getNumero());
 		mesaRepository.save(mesaFORM.converterParaMesa());
 		return ResponseEntity.status(HttpStatus.CREATED).build();
+	}
+	
+	private void verificarSeMesaJaExiste(Integer numero) {
+		Optional<Mesa> mesa = mesaRepository.findByNumero(numero);
+		
+		if (mesa.isPresent())
+			throw new IllegalArgumentException("Número de mesa já existe!");
 	}
 	
 	public ResponseEntity<Void> alterarDadosMesa(Integer id, AlteracaoMesaFORM alteracaoMesaFORM) {
@@ -53,11 +61,6 @@ public class MesaService {
 	
 	public ResponseEntity<Void> excluirMesa(Integer id) {
 		Mesa mesa = verificarSeMesaExiste(id);
-		
-		if (mesa.getDisponivel().equals(Resposta.NAO))
-			throw new IllegalArgumentException("Não é possível excluir uma mesa "
-					+ "que esteja em uso!");
-		
 		verificarSeExisteAlumPedidoComMesaIgual(mesa);
 		mesaRepository.delete(mesa);
 		

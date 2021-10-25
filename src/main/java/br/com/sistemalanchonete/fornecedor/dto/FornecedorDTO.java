@@ -29,7 +29,7 @@ public class FornecedorDTO {
 		telefone = fornecedor.getTelefone();
 		telefoneAlternativo = fornecedor.getTelefoneAlternativo();
 		dataCadastro = fornecedor.getDataCadastro();
-		produtos = ProdutoDTO.converter(fornecedor.getProdutos());
+		//produtos = ProdutoDTO.converter(fornecedor.getProdutos());
 	}
 	
 	public static List<FornecedorDTO> converter(List<Fornecedor> fornecedores) {

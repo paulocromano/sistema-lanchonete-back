@@ -35,9 +35,6 @@ public class Mesa {
 	@Min(value = 1, message = "O campo 'numero' deve ter o valor mínimo de {value}!")
 	private Integer numero;
 	
-	@NotNull(message = "O campo 'disponivel' não pode ser nulo!")
-	private Resposta disponivel;
-	
 	@Column(name = "ativa")
 	@NotNull(message = "O campo 'mesaAtiva' não pode ser nulo!")
 	private Resposta mesaAtiva;

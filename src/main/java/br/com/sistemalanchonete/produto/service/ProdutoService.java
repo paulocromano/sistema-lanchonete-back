@@ -13,6 +13,7 @@ import br.com.sistemalanchonete.exception.custom.ObjectNotFoundException;
 import br.com.sistemalanchonete.fornecedor.model.Fornecedor;
 import br.com.sistemalanchonete.fornecedor.service.FornecedorService;
 import br.com.sistemalanchonete.produto.dto.ProdutoDTO;
+import br.com.sistemalanchonete.produto.enums.TipoProduto;
 import br.com.sistemalanchonete.produto.form.AlteracaoProdutoFORM;
 import br.com.sistemalanchonete.produto.form.ProdutoFORM;
 import br.com.sistemalanchonete.produto.model.Produto;
@@ -31,6 +32,11 @@ public class ProdutoService {
 	public ResponseEntity<List<ProdutoDTO>> buscarProdutos() {
 		List<Produto> produtos = produtoRepository.findAll();
 		return ResponseEntity.ok().body(ProdutoDTO.converter(produtos));
+	}
+	
+	public ResponseEntity<List<ProdutoDTO>> buscarBebidas() {
+		List<Produto> bebidas = produtoRepository.findByTipoProduto(TipoProduto.BEBIDA);
+		return ResponseEntity.ok().body(ProdutoDTO.converter(bebidas));
 	}
 	
 	public ResponseEntity<Void> cadastrarProduto(ProdutoFORM produtoFORM) {

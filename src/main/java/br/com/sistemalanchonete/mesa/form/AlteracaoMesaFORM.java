@@ -10,16 +10,12 @@ import lombok.Setter;
 @Getter
 @Setter
 public class AlteracaoMesaFORM {
-
-	@NotNull(message = "O campo 'disponivel' não pode ser nulo!")
-	private Resposta disponivel;
 	
 	@NotNull(message = "O campo 'mesaAtiva' não pode ser nulo!")
 	private Resposta mesaAtiva;
 	
 	
 	public void atualizarDadosMesa(Mesa mesa) {
-		mesa.setDisponivel(disponivel);
 		mesa.setMesaAtiva(mesaAtiva);
 	}
 }

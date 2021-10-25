@@ -18,6 +18,8 @@ import javax.validation.constraints.Size;
 
 import org.springframework.format.annotation.DateTimeFormat;
 
+import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
+
 import br.com.sistemalanchonete.produto.model.Produto;
 import br.com.sistemalanchonete.utils.RegexUtils;
 import lombok.AccessLevel;
@@ -34,6 +36,7 @@ import lombok.Setter;
 @NoArgsConstructor
 @AllArgsConstructor(access = AccessLevel.PRIVATE)
 @Builder
+@JsonIgnoreProperties(value = { "produtos" })
 public class Fornecedor {
 
 	@Id

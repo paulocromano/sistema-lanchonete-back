@@ -81,16 +81,16 @@ public class Pedido {
 	private Cliente cliente;
 	
 	@NotEmpty(message = "O campo 'lanches' não pode ser nulo/vazio!")
-	@ManyToMany(cascade = { CascadeType.PERSIST, CascadeType.REMOVE }, fetch = FetchType.LAZY)
+	@ManyToMany(cascade = { CascadeType.PERSIST, CascadeType.REFRESH, CascadeType.REMOVE }, fetch = FetchType.LAZY)
 	@JoinTable(name = "pedido_has_lanche",
 			joinColumns = @JoinColumn(name = "pedido_id"),
 			inverseJoinColumns = @JoinColumn(name = "lanche_id"))
 	private List<Lanche> lanches;
 	
-	@NotEmpty(message = "O campo 'produtos' não pode ser nulo/vazio!")
-	@ManyToMany(cascade = { CascadeType.PERSIST, CascadeType.REMOVE }, fetch = FetchType.LAZY)
+	@NotEmpty(message = "O campo 'bebidas' não pode ser nulo/vazio!")
+	@ManyToMany(cascade = { CascadeType.PERSIST, CascadeType.REFRESH, CascadeType.REMOVE }, fetch = FetchType.LAZY)
 	@JoinTable(name = "pedido_has_produto",
 			joinColumns = @JoinColumn(name = "pedido_id"),
 			inverseJoinColumns = @JoinColumn(name = "produto_id"))
-	private List<Produto> produtos;
+	private List<Produto> bebidas;
 }

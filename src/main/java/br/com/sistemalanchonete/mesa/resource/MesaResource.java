@@ -34,9 +34,9 @@ public class MesaResource {
 		return mesaService.buscarMesas();
 	}
 	
-	@GetMapping(path = "/disponivel")
-	public ResponseEntity<List<MesaDTO>> buscarMesasDisponiveis() {
-		return mesaService.buscarMesasDisponiveis();
+	@GetMapping(path = "/ativa")
+	public ResponseEntity<List<MesaDTO>> buscarMesasAtivas() {
+		return mesaService.buscarMesasAtivas();
 	}
 	
 	@PostMapping

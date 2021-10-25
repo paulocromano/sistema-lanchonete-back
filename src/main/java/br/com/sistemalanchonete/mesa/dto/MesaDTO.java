@@ -12,14 +12,12 @@ public class MesaDTO {
 
 	private Integer id;
 	private Integer numero;
-	private String disponivel;
 	private String mesaAtiva;
 	
 	
 	public MesaDTO(Mesa mesa) {
 		id = mesa.getId();
 		numero = mesa.getNumero();
-		disponivel = mesa.getDisponivel().getDescricao();
 		mesaAtiva = mesa.getMesaAtiva().getDescricao();
 	}
 	

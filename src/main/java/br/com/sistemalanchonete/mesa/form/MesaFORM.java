@@ -20,7 +20,6 @@ public class MesaFORM {
 	public Mesa converterParaMesa() {
 		return Mesa.builder()
 				.numero(numero)
-				.disponivel(Resposta.SIM)
 				.mesaAtiva(Resposta.SIM)
 				.build();
 	}

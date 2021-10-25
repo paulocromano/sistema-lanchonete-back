@@ -25,7 +25,7 @@ public class PedidoDTO {
 	private MesaDTO mesa;
 	private ClienteDTO cliente;
 	private List<LancheDTO> lanches;
-	private List<ProdutoDTO> produtos;
+	private List<ProdutoDTO> bebidas;
 	
 	
 	public PedidoDTO(Pedido pedido) {
@@ -36,14 +36,14 @@ public class PedidoDTO {
 		dataHoraEntrega = Objects.nonNull(pedido.getDataHoraEntrega()) 
 				? ConversaoUtils.converterLocalDateTimeParaStringDataHoraMinuto(pedido.getDataHoraEntrega()) : null;
 		precoTotal = pedido.getPrecoTotal().toString();
-		mesa = new MesaDTO(pedido.getMesa());
-		cliente = new ClienteDTO(pedido.getCliente());
+		mesa = Objects.nonNull(pedido.getMesa()) ? new MesaDTO(pedido.getMesa()) : null;
+		cliente = Objects.nonNull(pedido.getCliente()) ? new ClienteDTO(pedido.getCliente()) : null;
 		lanches = LancheDTO.converter(pedido.getLanches());
-		produtos = ProdutoDTO.converter(pedido.getProdutos());
+		bebidas = ProdutoDTO.converter(pedido.getBebidas());
 	}
 	
 	
 	public static List<PedidoDTO> converter(List<Pedido> pedidos) {
-		return ConvertCollection.convertToOrdenedList(pedidos, PedidoDTO::new, Comparator.comparing(Pedido::getDataHoraPedido));
+		return ConvertCollection.convertToOrdenedList(pedidos, PedidoDTO::new, Comparator.comparing(Pedido::getDataHoraPedido).reversed());
 	}
 }
