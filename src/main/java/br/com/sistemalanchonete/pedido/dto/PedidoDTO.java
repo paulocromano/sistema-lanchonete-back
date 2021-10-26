@@ -35,7 +35,7 @@ public class PedidoDTO {
 		dataHoraPedido = ConversaoUtils.converterLocalDateTimeParaStringDataHoraMinuto(pedido.getDataHoraPedido());
 		dataHoraEntrega = Objects.nonNull(pedido.getDataHoraEntrega()) 
 				? ConversaoUtils.converterLocalDateTimeParaStringDataHoraMinuto(pedido.getDataHoraEntrega()) : null;
-		precoTotal = pedido.getPrecoTotal().toString();
+		precoTotal = Objects.nonNull(pedido.getPrecoTotal()) ? pedido.getPrecoTotal().toString() : "00.00";
 		mesa = Objects.nonNull(pedido.getMesa()) ? new MesaDTO(pedido.getMesa()) : null;
 		cliente = Objects.nonNull(pedido.getCliente()) ? new ClienteDTO(pedido.getCliente()) : null;
 		lanches = LancheDTO.converter(pedido.getLanches());

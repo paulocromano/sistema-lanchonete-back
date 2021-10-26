@@ -40,7 +40,7 @@ public class LancheFORM {
 				.nome(nome)
 				.ingredientes(ingredientes)
 				.preco(preco)
-				.imagemBase64(imagemBase64)
+				.imagemBase64(imagemBase64.split("data:image/png;base64,")[1])
 				.dataCadastro(LocalDate.now())
 				.build();
 	}
@@ -49,6 +49,6 @@ public class LancheFORM {
 		lanche.setNome(nome);
 		lanche.setIngredientes(ingredientes);
 		lanche.setPreco(preco);
-		lanche.setImagemBase64(imagemBase64.split("data:image/png;base64,")[0]);
+		lanche.setImagemBase64(imagemBase64.split("data:image/png;base64,")[1]);
 	}
 }

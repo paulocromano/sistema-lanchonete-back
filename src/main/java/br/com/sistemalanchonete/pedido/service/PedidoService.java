@@ -64,7 +64,7 @@ public class PedidoService {
 	}
 	
 	public ResponseEntity<Void> cadastrarPedido(PedidoFORM pedidoFORM) {
-		Pedido pedido = pedidoFORM.converterParaPedido();
+		Pedido pedido = pedidoFORM.converterParaPedido(mesaService, clienteService);
 		pedidoRepository.save(pedido);
 		
 		return ResponseEntity.status(HttpStatus.CREATED).build();
@@ -102,17 +102,20 @@ public class PedidoService {
 	
 	public ResponseEntity<Void> excluirLancheDoPedido(Long idPedido, Long idLanche) {
 		Pedido pedido = verificarSePedidoExiste(idPedido);
-		verificarSePedidoContemLanche(pedido.getLanches(), idLanche);
+		Lanche lanche = verificarSePedidoContemLanche(pedido.getLanches(), idLanche);
 		pedido.setLanches(removerLancheDaListaDeLancheDoPedido(pedido.getLanches(), idLanche));
+		pedido.setPrecoTotal(pedido.getPrecoTotal().subtract(lanche.getPreco()));
 		
 		return ResponseEntity.ok().build();
 	}
 	
-	private void verificarSePedidoContemLanche(List<Lanche> lanches, Long idLanche) {
+	private Lanche verificarSePedidoContemLanche(List<Lanche> lanches, Long idLanche) {
 		Optional<Lanche> lancheOptional = lanches.stream().filter(lanche -> lanche.getId().equals(idLanche)).findFirst();
 		
 		if (lancheOptional.isEmpty())
 			throw new ObjectNotFoundException("O Pedido não possui o lanche informado!");
+		
+		return lancheOptional.get();	
 	}
 	
 	private List<Lanche> removerLancheDaListaDeLancheDoPedido(List<Lanche> lanches, Long idLanche) {
@@ -121,17 +124,20 @@ public class PedidoService {
 	
 	public ResponseEntity<Void> excluirBebidaDoPedido(Long idPedido, Long idProduto) {
 		Pedido pedido = verificarSePedidoExiste(idPedido);
-		verificarSePedidoContemBebida(pedido.getBebidas(), idProduto);
+		Produto produto = verificarSePedidoContemBebida(pedido.getBebidas(), idProduto);
 		pedido.setBebidas(removerProdutoDaListaDeProdutoDoPedido(pedido.getBebidas(), idProduto));
+		pedido.setPrecoTotal(pedido.getPrecoTotal().subtract(produto.getPreco()));;
 		
 		return ResponseEntity.ok().build();
 	}
 	
-	private void verificarSePedidoContemBebida(List<Produto> produtos, Long idProduto) {
+	private Produto verificarSePedidoContemBebida(List<Produto> produtos, Long idProduto) {
 		Optional<Produto> produtoOptional = produtos.stream().filter(produto -> produto.getId().equals(idProduto)).findFirst();
 		
 		if (produtoOptional.isEmpty())
 			throw new ObjectNotFoundException("O Pedido não possui o produto informado!");
+		
+		return produtoOptional.get();
 	}
 	
 	private List<Produto> removerProdutoDaListaDeProdutoDoPedido(List<Produto> produtos, Long idProduto) {

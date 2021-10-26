@@ -21,6 +21,8 @@ import javax.validation.constraints.Size;
 
 import org.springframework.format.annotation.DateTimeFormat;
 
+import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
+
 import br.com.sistemalanchonete.endereco.model.Endereco;
 import br.com.sistemalanchonete.pedido.model.Pedido;
 import br.com.sistemalanchonete.utils.RegexUtils;
@@ -38,6 +40,7 @@ import lombok.Setter;
 @NoArgsConstructor
 @AllArgsConstructor(access = AccessLevel.PRIVATE)
 @Builder
+@JsonIgnoreProperties(value = { "pedidos" })
 public class Cliente {
 
 	@Id

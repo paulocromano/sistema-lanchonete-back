@@ -32,7 +32,7 @@ public class ClienteDTO {
 		telefoneRecado = Objects.nonNull(cliente.getTelefoneRecado()) ? cliente.getTelefoneRecado() : "---";
 		dataCadastro = cliente.getDataCadastro();
 		endereco = new EnderecoDTO(cliente.getEndereco());
-		pedidos = PedidoDTO.converter(cliente.getPedidos());
+		//pedidos = PedidoDTO.converter(cliente.getPedidos());
 	}
 	
 	

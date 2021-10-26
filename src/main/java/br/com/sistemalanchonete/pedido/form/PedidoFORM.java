@@ -5,6 +5,10 @@ import java.util.Objects;
 
 import javax.validation.constraints.NotNull;
 
+import br.com.sistemalanchonete.cliente.model.Cliente;
+import br.com.sistemalanchonete.cliente.service.ClienteService;
+import br.com.sistemalanchonete.mesa.model.Mesa;
+import br.com.sistemalanchonete.mesa.service.MesaService;
 import br.com.sistemalanchonete.pedido.model.Pedido;
 import br.com.sistemalanchonete.utils.enums.Resposta;
 import lombok.Getter;
@@ -21,15 +25,18 @@ public class PedidoFORM {
 	private Long idCliente;
 	
 	
-	public Pedido converterParaPedido() {
+	public Pedido converterParaPedido(MesaService mesaService, ClienteService clienteService) {
 		validarTipoPedido();
-		Pedido.PedidoBuilder pedidoBuilder = Pedido.builder();
-		 
-		 pedidoBuilder
+		Mesa mesa = buscarMesa(mesaService);
+		Cliente cliente = buscarCliente(clienteService);
+		
+		return Pedido.builder()
 		 	.entrega(entrega)
-		 	.dataHoraPedido(LocalDateTime.now());
-		 
-		 return pedidoBuilder.build();
+		 	.mesa(mesa)
+		 	.cliente(cliente)
+		 	.dataHoraPedido(LocalDateTime.now())
+		 	.build();
+
 	}
 	
 	private void validarTipoPedido() {
@@ -38,5 +45,19 @@ public class PedidoFORM {
 		
 		if (entrega.equals(Resposta.SIM) && Objects.isNull(idCliente))
 			throw new NullPointerException("O ID do Cliente não pode ser nulo!");
+	}
+	
+	private Mesa buscarMesa(MesaService mesaService) {
+		if (Objects.nonNull(idMesa))
+			return mesaService.verificarSeMesaExiste(idMesa);
+		
+		return null;
+	}
+	
+	private Cliente buscarCliente(ClienteService clienteService) {
+		if (Objects.nonNull(idCliente))
+			return clienteService.verificarSeClienteExiste(idCliente);
+		
+		return null;
 	}
 }

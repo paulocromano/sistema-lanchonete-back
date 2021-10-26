@@ -4,7 +4,6 @@ import java.math.BigDecimal;
 import java.time.LocalDateTime;
 import java.util.List;
 
-import javax.persistence.CascadeType;
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.FetchType;
@@ -18,7 +17,6 @@ import javax.persistence.ManyToOne;
 import javax.persistence.OneToOne;
 import javax.persistence.Table;
 import javax.validation.constraints.Digits;
-import javax.validation.constraints.NotEmpty;
 import javax.validation.constraints.NotNull;
 import javax.validation.constraints.Size;
 
@@ -68,7 +66,6 @@ public class Pedido {
 	private LocalDateTime dataHoraEntrega;
 	
 	@Column(name = "preco_total")
-	@NotNull(message = "O campo 'precoTotal' não pode ser nulo!")
 	@Digits(integer = 6, fraction = 2, message = "O formato do campo 'precoTotal' é inválido")
 	private BigDecimal precoTotal;
 	
@@ -80,15 +77,13 @@ public class Pedido {
 	@ManyToOne(fetch = FetchType.LAZY)
 	private Cliente cliente;
 	
-	@NotEmpty(message = "O campo 'lanches' não pode ser nulo/vazio!")
-	@ManyToMany(cascade = { CascadeType.PERSIST, CascadeType.REFRESH, CascadeType.REMOVE }, fetch = FetchType.LAZY)
+	@ManyToMany(fetch = FetchType.LAZY)
 	@JoinTable(name = "pedido_has_lanche",
 			joinColumns = @JoinColumn(name = "pedido_id"),
 			inverseJoinColumns = @JoinColumn(name = "lanche_id"))
 	private List<Lanche> lanches;
 	
-	@NotEmpty(message = "O campo 'bebidas' não pode ser nulo/vazio!")
-	@ManyToMany(cascade = { CascadeType.PERSIST, CascadeType.REFRESH, CascadeType.REMOVE }, fetch = FetchType.LAZY)
+	@ManyToMany(fetch = FetchType.LAZY)
 	@JoinTable(name = "pedido_has_produto",
 			joinColumns = @JoinColumn(name = "pedido_id"),
 			inverseJoinColumns = @JoinColumn(name = "produto_id"))
