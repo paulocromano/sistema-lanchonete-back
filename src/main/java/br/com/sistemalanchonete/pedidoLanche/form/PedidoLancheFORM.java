@@ -1,4 +1,4 @@
-package br.com.sistemalanchonete.pedido.form;
+package br.com.sistemalanchonete.pedidoLanche.form;
 
 import java.math.BigDecimal;
 import java.util.List;
@@ -10,6 +10,7 @@ import javax.validation.constraints.Size;
 
 import br.com.sistemalanchonete.lanche.model.Lanche;
 import br.com.sistemalanchonete.pedido.model.Pedido;
+import br.com.sistemalanchonete.pedidoLanche.model.PedidoLanche;
 import lombok.Getter;
 import lombok.Setter;
 
@@ -29,15 +30,23 @@ public class PedidoLancheFORM {
 	
 	
 	public void atualizarLanchesDoPedido(Pedido pedido, Lanche lanche) {
-		List<Lanche> lanchesDoPedido = pedido.getLanches();
+		List<PedidoLanche> lanchesDoPedido = pedido.getLanches();
 		BigDecimal precoTotalPedido = Objects.nonNull(pedido.getPrecoTotal()) ? pedido.getPrecoTotal() : new BigDecimal("0");
 		
-		for (int i = 0; i < quantidade; i++) 
-			lanchesDoPedido.add(lanche);
-
+		lanchesDoPedido.add(converterParaPedidoLanche(pedido, lanche));
 		precoTotalPedido = precoTotalPedido.add(lanche.getPreco().multiply(new BigDecimal(quantidade)));
+		
 		pedido.setLanches(lanchesDoPedido);
 		pedido.setPrecoTotal(precoTotalPedido);
 		pedido.setObservacoes(observacoes);
+	}
+	
+	private PedidoLanche converterParaPedidoLanche(Pedido pedido, Lanche lanche) {
+		return PedidoLanche.builder()
+				.precoUnitario(lanche.getPreco())
+				.quantidade(quantidade)
+				.pedido(pedido)
+				.lanche(lanche)
+				.build();			
 	}
 }

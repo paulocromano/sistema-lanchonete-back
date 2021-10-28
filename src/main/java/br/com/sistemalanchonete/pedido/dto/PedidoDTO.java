@@ -5,10 +5,10 @@ import java.util.List;
 import java.util.Objects;
 
 import br.com.sistemalanchonete.cliente.dto.ClienteDTO;
-import br.com.sistemalanchonete.lanche.dto.LancheDTO;
 import br.com.sistemalanchonete.mesa.dto.MesaDTO;
 import br.com.sistemalanchonete.pedido.model.Pedido;
-import br.com.sistemalanchonete.produto.dto.ProdutoDTO;
+import br.com.sistemalanchonete.pedidoBebida.dto.PedidoBebidaDTO;
+import br.com.sistemalanchonete.pedidoLanche.dto.PedidoLancheDTO;
 import br.com.sistemalanchonete.utils.ConversaoUtils;
 import br.com.sistemalanchonete.utils.ConvertCollection;
 import lombok.Getter;
@@ -24,8 +24,8 @@ public class PedidoDTO {
 	private String precoTotal;
 	private MesaDTO mesa;
 	private ClienteDTO cliente;
-	private List<LancheDTO> lanches;
-	private List<ProdutoDTO> bebidas;
+	private List<PedidoLancheDTO> lanches;
+	private List<PedidoBebidaDTO> bebidas;
 	
 	
 	public PedidoDTO(Pedido pedido) {
@@ -38,8 +38,8 @@ public class PedidoDTO {
 		precoTotal = Objects.nonNull(pedido.getPrecoTotal()) ? pedido.getPrecoTotal().toString() : "00.00";
 		mesa = Objects.nonNull(pedido.getMesa()) ? new MesaDTO(pedido.getMesa()) : null;
 		cliente = Objects.nonNull(pedido.getCliente()) ? new ClienteDTO(pedido.getCliente()) : null;
-		lanches = LancheDTO.converter(pedido.getLanches());
-		bebidas = ProdutoDTO.converter(pedido.getBebidas());
+		lanches = PedidoLancheDTO.converter(pedido.getLanches());
+		bebidas = PedidoBebidaDTO.converter(pedido.getBebidas());
 	}
 	
 	

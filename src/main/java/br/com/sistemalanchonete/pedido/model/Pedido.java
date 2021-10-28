@@ -4,6 +4,7 @@ import java.math.BigDecimal;
 import java.time.LocalDateTime;
 import java.util.List;
 
+import javax.persistence.CascadeType;
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.FetchType;
@@ -11,9 +12,8 @@ import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.JoinColumn;
-import javax.persistence.JoinTable;
-import javax.persistence.ManyToMany;
 import javax.persistence.ManyToOne;
+import javax.persistence.OneToMany;
 import javax.persistence.OneToOne;
 import javax.persistence.Table;
 import javax.validation.constraints.Digits;
@@ -25,9 +25,9 @@ import org.springframework.format.annotation.DateTimeFormat;
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 
 import br.com.sistemalanchonete.cliente.model.Cliente;
-import br.com.sistemalanchonete.lanche.model.Lanche;
 import br.com.sistemalanchonete.mesa.model.Mesa;
-import br.com.sistemalanchonete.produto.model.Produto;
+import br.com.sistemalanchonete.pedidoBebida.model.PedidoBebida;
+import br.com.sistemalanchonete.pedidoLanche.model.PedidoLanche;
 import br.com.sistemalanchonete.utils.enums.Resposta;
 import lombok.AccessLevel;
 import lombok.AllArgsConstructor;
@@ -77,15 +77,9 @@ public class Pedido {
 	@ManyToOne(fetch = FetchType.LAZY)
 	private Cliente cliente;
 	
-	@ManyToMany(fetch = FetchType.LAZY)
-	@JoinTable(name = "pedido_has_lanche",
-			joinColumns = @JoinColumn(name = "pedido_id"),
-			inverseJoinColumns = @JoinColumn(name = "lanche_id"))
-	private List<Lanche> lanches;
+	@OneToMany(mappedBy = "pedido", cascade = CascadeType.ALL, fetch = FetchType.LAZY)
+	private List<PedidoLanche> lanches;
 	
-	@ManyToMany(fetch = FetchType.LAZY)
-	@JoinTable(name = "pedido_has_produto",
-			joinColumns = @JoinColumn(name = "pedido_id"),
-			inverseJoinColumns = @JoinColumn(name = "produto_id"))
-	private List<Produto> bebidas;
+	@OneToMany(mappedBy = "pedido", cascade = CascadeType.ALL, fetch = FetchType.LAZY)
+	private List<PedidoBebida> bebidas;
 }

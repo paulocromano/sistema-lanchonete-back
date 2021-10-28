@@ -1,4 +1,4 @@
-package br.com.sistemalanchonete.pedido.form;
+package br.com.sistemalanchonete.pedidoBebida.form;
 
 import java.math.BigDecimal;
 import java.util.List;
@@ -9,6 +9,7 @@ import javax.validation.constraints.NotNull;
 import javax.validation.constraints.Size;
 
 import br.com.sistemalanchonete.pedido.model.Pedido;
+import br.com.sistemalanchonete.pedidoBebida.model.PedidoBebida;
 import br.com.sistemalanchonete.produto.model.Produto;
 import lombok.Getter;
 import lombok.Setter;
@@ -28,16 +29,24 @@ public class PedidoBebidaFORM {
 	private String observacoes;
 	
 	
-	public void atualizarBebidasDoPedido(Pedido pedido, Produto produto) {
-		List<Produto> bebidasDoPedido = pedido.getBebidas();
+	public void atualizarBebidasDoPedido(Pedido pedido, Produto bebida) {
+		List<PedidoBebida> bebidasDoPedido = pedido.getBebidas();
 		BigDecimal precoTotalPedido = Objects.nonNull(pedido.getPrecoTotal()) ? pedido.getPrecoTotal() : new BigDecimal("0");
 		
-		for (int i = 0; i < quantidade; i++) 
-			bebidasDoPedido.add(produto);
-
-		precoTotalPedido = precoTotalPedido.add(produto.getPreco().multiply(new BigDecimal(quantidade)));
+		bebidasDoPedido.add(converterParaPedidoBebida(pedido, bebida));
+		precoTotalPedido = precoTotalPedido.add(bebida.getPreco().multiply(new BigDecimal(quantidade)));
+		
 		pedido.setBebidas(bebidasDoPedido);
 		pedido.setPrecoTotal(precoTotalPedido);
 		pedido.setObservacoes(observacoes);
+	}
+	
+	private PedidoBebida converterParaPedidoBebida(Pedido pedido, Produto bebida) {
+		return PedidoBebida.builder()
+				.precoUnitario(bebida.getPreco())
+				.quantidade(quantidade)
+				.pedido(pedido)
+				.bebida(bebida)
+				.build();			
 	}
 }
