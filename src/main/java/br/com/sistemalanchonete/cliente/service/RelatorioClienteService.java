@@ -35,19 +35,20 @@ public class RelatorioClienteService {
 		return RelatorioUtils.gerarRelatorioEmPDF("clientes", parametros);
 	}
 	
-	public ResponseEntity<byte[]> gerarRelatorioDeClientesCadastradosEntrePeriodos(LocalDate dataInicial, LocalDate dataFinal) {
-		validarDatasRelatorio(dataInicial, dataFinal);
-		List<Cliente> clientes = clienteRepository.findByDataCadastroBetween(dataInicial, dataFinal);
+	public ResponseEntity<byte[]> gerarRelatorioDeClientesCadastradosEntrePeriodos(String dataInicial, String dataFinal) {
+		LocalDate dataIniicialLocalDate = ConversaoUtils.converterStringParaLocalDate(dataInicial);
+		LocalDate dataFinalLocalDate = ConversaoUtils.converterStringParaLocalDate(dataFinal);
+		
+		validarDatasRelatorio(dataIniicialLocalDate, dataFinalLocalDate);
+		List<Cliente> clientes = clienteRepository.findByDataCadastroBetween(dataIniicialLocalDate, dataFinalLocalDate);
 		
 		if (clientes.isEmpty())
 			throw new EmptyDataResultException("Nenhum cliente cadastrado!");
 		
 		Map<String, Object> parametros = RelatorioClienteDTO.gerarMapComParametrosDoRelatorio(clientes);
-		
-		String dataInicialString = ConversaoUtils.converterLocalDateParaString(dataInicial);
-		String dataFinalString = ConversaoUtils.converterLocalDateParaString(dataFinal);
-		String titulo = "Relatório de Clientes - " + (dataInicial.isEqual(dataInicial) 
-				? dataInicialString : dataInicialString + " à " + dataFinalString);
+
+		String titulo = "Relatório de Clientes - " + (dataIniicialLocalDate.isEqual(dataFinalLocalDate) 
+				? dataInicial : dataInicial + " à " + dataFinal);
 		
 		parametros.put("titulo", titulo);
 		

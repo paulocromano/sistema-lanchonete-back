@@ -84,6 +84,19 @@ public class PedidoService {
 		return ResponseEntity.noContent().build();
 	}
 	
+	public ResponseEntity<Void> finalizarPedido(Long idPedido) {
+		Pedido pedido = verificarSePedidoExiste(idPedido);
+		verificarSePedidoJaFoiFinalizado(pedido);
+		pedido.setPedidoFinalizado(Resposta.SIM);
+		
+		return ResponseEntity.ok().build();
+	}
+	
+	public void verificarSePedidoJaFoiFinalizado(Pedido pedido) {
+		if (pedido.getPedidoFinalizado().equals(Resposta.SIM))
+			throw new IllegalArgumentException("O Pedido já foi finalizado!");
+	}
+	
 	public Pedido verificarSePedidoExiste(Long id) {
 		if (Objects.isNull(id))
 			throw new NullPointerException("O ID do Pedido não pode ser nulo!");

@@ -32,6 +32,7 @@ public class PedidoFORM {
 		
 		return Pedido.builder()
 		 	.entrega(entrega)
+		 	.pedidoFinalizado(Resposta.NAO)
 		 	.mesa(mesa)
 		 	.cliente(cliente)
 		 	.dataHoraPedido(LocalDateTime.now())

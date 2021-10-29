@@ -69,6 +69,10 @@ public class Pedido {
 	@Digits(integer = 6, fraction = 2, message = "O formato do campo 'precoTotal' é inválido")
 	private BigDecimal precoTotal;
 	
+	@Column(name = "pedido_finalizado")
+	@NotNull(message = "O campo 'pedidoFinalizado' não pode ser nulo!")
+	private Resposta pedidoFinalizado;
+	
 	@JoinColumn(name = "mesa_id")
 	@OneToOne(fetch = FetchType.LAZY)
 	private Mesa mesa;

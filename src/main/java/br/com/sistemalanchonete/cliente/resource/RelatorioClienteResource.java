@@ -1,7 +1,5 @@
 package br.com.sistemalanchonete.cliente.resource;
 
-import java.time.LocalDate;
-
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -26,7 +24,7 @@ public class RelatorioClienteResource {
 	
 	@GetMapping(path = "/cadastrados-entre-periodo")
 	public ResponseEntity<byte[]> gerarRelatorioDeClientesCadastradosEntrePeriodos(
-			@RequestParam LocalDate dataInicial, @RequestParam LocalDate dataFinal) {
+			@RequestParam String dataInicial, @RequestParam String dataFinal) {
 		
 		return relatorioClienteService.gerarRelatorioDeClientesCadastradosEntrePeriodos(dataInicial, dataFinal);
 	}

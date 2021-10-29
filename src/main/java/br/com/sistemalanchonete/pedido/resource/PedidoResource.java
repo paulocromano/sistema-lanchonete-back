@@ -56,4 +56,10 @@ public class PedidoResource {
 	public ResponseEntity<Void> excluirPedido(@PathVariable Long id) {
 		return pedidoService.excluirPedido(id);
 	}
+	
+	@PutMapping(path = "/finalizar-pedido/{idPedido}")
+	@Transactional
+	public ResponseEntity<Void> finalizarPedido(@PathVariable Long idPedido) {
+		return pedidoService.finalizarPedido(idPedido);
+	}
 }
