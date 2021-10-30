@@ -1,5 +1,6 @@
 package br.com.sistemalanchonete.pedido.form;
 
+import java.math.BigDecimal;
 import java.time.LocalDateTime;
 import java.util.Objects;
 
@@ -32,6 +33,7 @@ public class PedidoFORM {
 		
 		return Pedido.builder()
 		 	.entrega(entrega)
+		 	.precoTotal(new BigDecimal("00.00"))
 		 	.pedidoFinalizado(Resposta.NAO)
 		 	.mesa(mesa)
 		 	.cliente(cliente)

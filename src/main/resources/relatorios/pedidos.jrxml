@@ -1,0 +1,138 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!-- Created with Jaspersoft Studio version 6.16.0.final using JasperReports Library version 6.16.0-48579d909b7943b64690c65c71e07e0b80981928  -->
+<jasperReport xmlns="http://jasperreports.sourceforge.net/jasperreports" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://jasperreports.sourceforge.net/jasperreports http://jasperreports.sourceforge.net/xsd/jasperreport.xsd" name="pedidos" pageWidth="595" pageHeight="842" columnWidth="555" leftMargin="20" rightMargin="20" topMargin="20" bottomMargin="20" uuid="6cf6d26b-a990-40b0-a52a-7c04362db4b7">
+	<subDataset name="pedidos" uuid="acdfa55c-f6d0-4740-890e-13b68fa4b686">
+		<queryString>
+			<![CDATA[]]>
+		</queryString>
+		<field name="id" class="java.lang.Long"/>
+		<field name="observacoes" class="java.lang.String"/>
+		<field name="entrega" class="java.lang.String"/>
+		<field name="dataHoraPedido" class="java.lang.String"/>
+		<field name="precoTotal" class="java.lang.String"/>
+		<field name="nomeCliente" class="java.lang.String"/>
+		<field name="descricaoPedidoLanches" class="java.lang.String"/>
+		<field name="descricaoPedidoBebidas" class="java.lang.String"/>
+		<field name="pedidoFinalizado" class="java.lang.String"/>
+	</subDataset>
+	<parameter name="titulo" class="java.lang.String"/>
+	<parameter name="precoTotalPedidos" class="java.lang.String"/>
+	<parameter name="dataHorarioGeracaoRelatorio" class="java.lang.String"/>
+	<parameter name="pedidos" class="net.sf.jasperreports.engine.data.JRBeanCollectionDataSource"/>
+	<queryString>
+		<![CDATA[]]>
+	</queryString>
+	<background>
+		<band splitType="Stretch"/>
+	</background>
+	<title>
+		<band height="79" splitType="Stretch"/>
+	</title>
+	<pageHeader>
+		<band height="55" splitType="Stretch">
+			<textField>
+				<reportElement x="0" y="10" width="550" height="30" uuid="c60f2041-fede-4c0d-8ed2-9148799cc6be"/>
+				<textElement textAlignment="Center">
+					<font size="14" isBold="true"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$P{titulo}]]></textFieldExpression>
+			</textField>
+		</band>
+	</pageHeader>
+	<columnHeader>
+		<band height="61" splitType="Stretch"/>
+	</columnHeader>
+	<detail>
+		<band height="125" splitType="Stretch">
+			<componentElement>
+				<reportElement x="0" y="0" width="550" height="99" uuid="65c60710-567f-482b-b0f9-be68ce707279"/>
+				<jr:list xmlns:jr="http://jasperreports.sourceforge.net/jasperreports/components" xsi:schemaLocation="http://jasperreports.sourceforge.net/jasperreports/components http://jasperreports.sourceforge.net/xsd/components.xsd">
+					<datasetRun subDataset="pedidos" uuid="c4357751-cd97-4f1b-bc10-ddabad680d0e">
+						<dataSourceExpression><![CDATA[$P{pedidos}]]></dataSourceExpression>
+					</datasetRun>
+					<jr:listContents height="99" width="550">
+						<rectangle>
+							<reportElement x="0" y="0" width="550" height="99" uuid="d96c351f-c185-4bd4-a4cb-fc2bbddd80fd"/>
+							<graphicElement>
+								<pen lineStyle="Solid"/>
+							</graphicElement>
+						</rectangle>
+						<textField>
+							<reportElement x="0" y="0" width="80" height="20" uuid="7f2f02f9-bc98-44b6-af43-1a30c439f1b0"/>
+							<box leftPadding="10"/>
+							<textElement markup="html"/>
+							<textFieldExpression><![CDATA["<b>ID: </b>" + $F{id}]]></textFieldExpression>
+						</textField>
+						<textField>
+							<reportElement x="100" y="0" width="170" height="20" uuid="6de2d15a-f52a-4c05-b22c-14d129bf77d9"/>
+							<textElement markup="html"/>
+							<textFieldExpression><![CDATA["<b>Data e Hora do Pedido: </b>" + $F{dataHoraPedido}]]></textFieldExpression>
+						</textField>
+						<textField>
+							<reportElement x="290" y="0" width="130" height="20" uuid="f585b174-9de4-4bca-b6a2-c463afcc8b28"/>
+							<textElement markup="html"/>
+							<textFieldExpression><![CDATA["<b>Para Entrega: </b>" + $F{entrega}]]></textFieldExpression>
+						</textField>
+						<textField>
+							<reportElement x="440" y="0" width="110" height="20" uuid="a0f4ce42-f2a4-4bab-8fc3-145f848f2c1f"/>
+							<textElement markup="html"/>
+							<textFieldExpression><![CDATA["<b>Preço Total R$: </b>" + $F{precoTotal}]]></textFieldExpression>
+						</textField>
+						<textField>
+							<reportElement x="0" y="20" width="290" height="20" uuid="dc415687-099e-4ca5-97b3-db2044e611f6"/>
+							<box leftPadding="10"/>
+							<textElement markup="html"/>
+							<textFieldExpression><![CDATA["<b>Cliente: </b>" + $F{nomeCliente}]]></textFieldExpression>
+						</textField>
+						<textField>
+							<reportElement x="0" y="40" width="550" height="20" uuid="e3d2e258-b12b-4bd5-ae8d-1fbd539001ee"/>
+							<box leftPadding="10"/>
+							<textElement markup="html"/>
+							<textFieldExpression><![CDATA["<b>Observações: </b>" + $F{observacoes}]]></textFieldExpression>
+						</textField>
+						<textField>
+							<reportElement stretchType="ContainerBottom" x="0" y="60" width="550" height="19" uuid="26a071b0-05de-4b09-86e6-4ae3b141f47b"/>
+							<box leftPadding="10"/>
+							<textElement markup="html"/>
+							<textFieldExpression><![CDATA["<b>Lanches: </b>" +$F{descricaoPedidoLanches}]]></textFieldExpression>
+						</textField>
+						<textField>
+							<reportElement x="0" y="79" width="550" height="20" uuid="e03cc0f8-4aae-4719-acd7-9e3ca458fc04"/>
+							<box leftPadding="10"/>
+							<textElement markup="html"/>
+							<textFieldExpression><![CDATA["<b>Bebidas: </b>" + $F{descricaoPedidoBebidas}]]></textFieldExpression>
+						</textField>
+						<textField>
+							<reportElement x="290" y="20" width="130" height="20" uuid="a0cf204a-474d-4430-a235-e435a4d3fae5"/>
+							<textElement markup="html"/>
+							<textFieldExpression><![CDATA["<b>Pedido Finalizado: </b>" + $F{pedidoFinalizado}]]></textFieldExpression>
+						</textField>
+					</jr:listContents>
+				</jr:list>
+			</componentElement>
+		</band>
+	</detail>
+	<columnFooter>
+		<band height="63" splitType="Stretch">
+			<textField>
+				<reportElement x="80" y="30" width="400" height="30" uuid="069e934a-443c-4046-a9f2-274f08498382"/>
+				<textElement textAlignment="Center" markup="html">
+					<font size="12"/>
+				</textElement>
+				<textFieldExpression><![CDATA["<b>Preço Total dos Pedidos R$: </b>" + $P{precoTotalPedidos}]]></textFieldExpression>
+			</textField>
+		</band>
+	</columnFooter>
+	<pageFooter>
+		<band height="54" splitType="Stretch">
+			<textField>
+				<reportElement x="80" y="20" width="400" height="30" uuid="225bc128-6568-4f13-b821-39f1263936d0"/>
+				<textElement textAlignment="Center" markup="html"/>
+				<textFieldExpression><![CDATA["<b>Gerado em: </b>" + $P{dataHorarioGeracaoRelatorio}]]></textFieldExpression>
+			</textField>
+		</band>
+	</pageFooter>
+	<summary>
+		<band height="42" splitType="Stretch"/>
+	</summary>
+</jasperReport>
