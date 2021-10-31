@@ -13,6 +13,8 @@ import org.springframework.web.bind.annotation.ExceptionHandler;
 
 import br.com.sistemalanchonete.exception.custom.EmptyDataResultException;
 import br.com.sistemalanchonete.exception.custom.FileException;
+import br.com.sistemalanchonete.exception.custom.ForbiddenException;
+import br.com.sistemalanchonete.exception.custom.IntegrityConstraintViolationException;
 import br.com.sistemalanchonete.exception.custom.ObjectNotFoundException;
 import br.com.sistemalanchonete.exception.model.PadraoErro;
 import br.com.sistemalanchonete.exception.model.ValidationError;
@@ -36,6 +38,15 @@ public class ExceptionHandle {
 		return erroPadronizado(HttpStatus.BAD_REQUEST, "Erro ao converter Data e/ou Hora!", exception, request);
 	}
 	
+	@ExceptionHandler(IntegrityConstraintViolationException.class)
+	public ResponseEntity<PadraoErro> integrityConstraintViolation(IntegrityConstraintViolationException exception, HttpServletRequest request) {
+		return erroPadronizado(HttpStatus.BAD_REQUEST, "Erro de Integridade dos Dados!", exception, request);
+	}
+	
+	@ExceptionHandler(ForbiddenException.class)
+	public ResponseEntity<PadraoErro> forbidden(ForbiddenException exception, HttpServletRequest request) {
+		return erroPadronizado(HttpStatus.FORBIDDEN, "Acesso negado!", exception, request);
+	}
 	
 	@ExceptionHandler(ObjectNotFoundException.class)
 	public ResponseEntity<PadraoErro> notFound(ObjectNotFoundException exception, HttpServletRequest request) {
